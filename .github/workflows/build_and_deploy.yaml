@@ -53,12 +53,13 @@ jobs:
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         with:
           input: ./k8s/secrets.yaml
-          output: ./k8s/secrets.yaml
+          output: ./k8s/output_secrets.yaml
 
       - name: Apply all files
         run: |
+          rm ./k8s/secrets.yaml
           # Apply all files
-          kubectl apply -f ./k8s/
+          kubectl apply --recursive -f ./k8s/
 
           sleep 15
 
