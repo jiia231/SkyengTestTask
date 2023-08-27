@@ -68,7 +68,7 @@ spec:
       containers:
         - name: migrate-app-db
           image: registry.skyeng-test-task.xyz/checker_app:${IMAGE_TAG}
-          command: [python, manage.py, migrate, --database, default]
+          command: ["python", "manage.py", "migrate", "--database", "default"]
           envFrom:
             - secretRef:
                 name: django-app-env
