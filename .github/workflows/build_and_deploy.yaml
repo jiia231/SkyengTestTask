@@ -30,7 +30,7 @@ jobs:
         run: |
           # curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--disable=traefik" sh -s -
           echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ./id_rsa
-          scp -i ./id_rsa root@${{ secrets.HOST_ADDR }}:/etc/rancher/k3s/k3s.yaml ./k3s.yaml
+          scp -i ./id_rsa root@${{ env.HOST_ADDR }}:/etc/rancher/k3s/k3s.yaml ./k3s.yaml
 
           export KUBECONFIG=./k3s.yaml
 
