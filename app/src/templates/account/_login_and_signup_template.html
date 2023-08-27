@@ -1,0 +1,31 @@
+{% extends "_base.html" %}
+{% block content %}
+    {% include 'components/_header.html' %}
+
+    <div
+        class="flex flex-col items-center justify-center w-screen min-h-screen bg-gray-100 text-gray-700"
+    >
+        <!-- Component Start -->
+        <h1 class="font-bold text-2xl">
+            {% block main_text %}{% endblock main_text %}
+        </h1>
+        <div
+            class="flex flex-col justify-center items-center max-w-sm bg-white rounded shadow-lg p-12 mt-12 border border-blue-500"
+        >
+            <form id="this-form" method="post">
+                {% block form %} {% endblock form %}
+            </form>
+            <button
+                type="submit"
+                form="this-form"
+                class="flex items-center justify-center h-12 px-6 w-64 bg-blue-600 mt-4 rounded font-semibold text-sm text-blue-100 hover:bg-blue-700"
+            >
+                {% block submit_btn_text %}{% endblock submit_btn_text %}
+            </button>
+            <div class="flex mt-6 justify-center text-xs">
+                <a class="text-blue-400 hover:text-blue-500" href="#">Forgot Password</a>
+            </div>
+        </div>
+        <!-- Component End  -->
+    </div>
+{% endblock content %}

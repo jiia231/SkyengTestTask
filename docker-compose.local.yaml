@@ -1,0 +1,25 @@
+services:
+  checker_app:
+    build:
+      context: ./app
+      target: development
+    image: checker_app
+    volumes:
+      - ./app/src:/checker_app/src
+    environment:
+      - DJANGO_DEBUG=True
+
+  celery:
+    image: checker_app
+    command: bash -c "cd src && celery -A config worker -l INFO -B --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    volumes:
+      - ./app/src:/checker_app/src
+      - media_volume:/checker_app/media/
+    environment:
+      - DJANGO_POSTGRES_HOST=${DJANGO_POSTGRES_HOST}
+      - DJANGO_POSTGRES_PORT=${DJANGO_POSTGRES_PORT}
+      - DJANGO_POSTGRES_USER=${DJANGO_POSTGRES_USER}
+      - DJANGO_POSTGRES_PASSWORD=${DJANGO_POSTGRES_PASSWORD}
+      - DJANGO_POSTGRES_DATABASE=${DJANGO_POSTGRES_DATABASE}
+    depends_on:
+      - rabbitmq_broker

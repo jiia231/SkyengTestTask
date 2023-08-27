@@ -1,0 +1,12 @@
+{% extends "_base.html" %}
+{% block title %}Dashboard{% endblock title %}
+{% block content %}
+    {% include 'components/_header.html' %}
+    <div class="flex w-screen min-h-screen bg-gray-300">
+        {% include 'components/_sidebar.html' %}
+        <div class="ml-56 mr-8 mb-4 mt-24 w-full">
+            {% block inner_content %}
+            {% endblock inner_content %}
+        </div>
+    </div>
+{% endblock content %}

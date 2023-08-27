@@ -1,0 +1,218 @@
+{% extends "_base.html" %}
+{% block content %}
+    <div class="flex flex-col min-h-screen">
+        {% include 'components/_header.html' %}
+        <main class="grow">
+            <section class="relative">
+                <div
+                    class="absolute left-1/2 transform -translate-x-1/2 bottom-0 pointer-events-none -z-1"
+                    aria-hidden="true"
+                >
+                    <svg
+                        width="1360"
+                        height="578"
+                        viewBox="0 0 1360 578"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <defs>
+                            <linearGradient
+                                x1="50%"
+                                y1="0%"
+                                x2="50%"
+                                y2="100%"
+                                id="illustration-01"
+                            >
+                                <stop stop-color="#FFF" offset="0%"></stop>
+                                <stop stop-color="#EAEAEA" offset="77.402%"></stop>
+                                <stop stop-color="#DFDFDF" offset="100%"></stop>
+                            </linearGradient>
+                        </defs>
+                        <g fill="url(#illustration-01)" fill-rule="evenodd">
+                            <circle cx="1232" cy="128" r="128"></circle>
+                            <circle cx="155" cy="443" r="64"></circle>
+                        </g>
+                    </svg>
+                </div>
+                <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                    <div class="pt-32 pb-12 md:pt-40 md:pb-20">
+                        <div class="text-center pb-12 md:pb-16">
+                            <h1
+                                class="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4 aos-init aos-animate"
+                                data-aos="zoom-y-out"
+                            >
+                                Make your codebase
+                                <span
+                                    class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400"
+                                >wonderful</span
+                                    >
+                                </h1>
+                                <div class="max-w-3xl mx-auto">
+                                    <p
+                                        class="text-xl text-gray-600 mb-8 aos-init aos-animate"
+                                        data-aos="zoom-y-out"
+                                        data-aos-delay="150"
+                                    >
+                                        Running checks on your code is easy. See it for yourself
+                                    </p>
+                                    <div
+                                        class="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center aos-init aos-animate"
+                                        data-aos="zoom-y-out"
+                                        data-aos-delay="300"
+                                    >
+                                        <a href="{% url 'files_list' %}">
+                                            <div class="px-8 py-3 shadow-lg rounded-lg text-white bg-blue-600 hover:bg-blue-700 w-full mb-4 sm:w-auto sm:mb-0">
+                                                Explore
+                                            </div>
+                                        </a>
+
+                                        <button class="px-8 py-3 shadow-lg rounded-lg text-white bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4"
+                                                onclick="triggerModal(true)"
+                                        >Learn more</button
+                                            >
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <div class="relative flex justify-center mb-8">
+                                            <div class="flex justify-center h-96">
+                                                <svg
+                                                    class="w-96 h-96 mt-10 drop-shadow-lg"
+                                                    viewBox="0 0 50 50"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <defs>
+                                                        <radialGradient
+                                                            cx="21.152%"
+                                                            cy="86.063%"
+                                                            fx="21.152%"
+                                                            fy="86.063%"
+                                                            r="79.941%"
+                                                            id="logo"
+                                                        >
+                                                            <stop stop-color="#4FD1C5" offset="0%"></stop>
+                                                            <stop stop-color="#81E6D9" offset="25.871%"></stop>
+                                                            <stop stop-color="#338CF5" offset="100%"></stop>
+                                                        </radialGradient>
+                                                    </defs>
+                                                    <path
+                                                        fill="url(#logo)"
+                                                        fill-rule="nonzero"
+                                                        d="M 24.5 2 C 15.800781 2 14 6.492188 14 9.09375 L 14 14 L 24 14 L 24 15 L 9.09375 15 C 5.792969 15 2 17.601563 2 25 C 2 32.398438 5.792969 35 9.09375 35 L 15 35 L 15 29 C 15 26.800781 16.800781 25 19 25 L 31 25 C 32.699219 25 34 23.699219 34 22 L 34 9.09375 C 34 5.59375 30.699219 2 24.5 2 Z M 20 7 C 21.101563 7 22 7.898438 22 9 C 22 10.101563 21.101563 11 20 11 C 18.898438 11 18 10.101563 18 9 C 18 7.898438 18.898438 7 20 7 Z M 35 15 L 35 22 C 35 24.199219 33.199219 26 31 26 L 19 26 C 17.300781 26 16 27.300781 16 29 L 16 40.90625 C 16 44.40625 19.300781 48 25.5 48 C 34.199219 48 36 43.507813 36 40.90625 L 36 36 L 26 36 L 26 35 L 40.90625 35 C 44.207031 35 48 32.398438 48 25 C 48 17.601563 44.207031 15 40.90625 15 Z M 30 39 C 31.101563 39 32 39.898438 32 41 C 32 42.101563 31.101563 43 30 43 C 28.898438 43 28 42.101563 28 41 C 28 39.898438 28.898438 39 30 39 Z"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="">
+                        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                            <div class="py-20 my-10 rounded-lg bg-gray-200">
+                                <div
+                                    class="max-w-xl mx-auto md:col-span-7 lg:col-span-6 md:mt-6 aos-init aos-animate"
+                                    data-aos="fade-right"
+                                >
+                                    <div class="md:pr-4 lg:pr-12 xl:pr-16 mb-8">
+                                        <h3 class="h3 mb-3">Powerful suite of tools</h3>
+                                        <p class="text-xl text-gray-600">
+                                            This service automates the evaluation of Python code against industry-standard coding conventions such as PEP 8. It efficiently assesses your codebase, highlighting deviations from best practices and offering insights for improved code readability and maintainability.
+                                        </p>
+                                    </div>
+                                    <div class="mb-8 md:mb-0">
+                                        <a
+                                            class="flex items-center text-lg p-5 rounded border transition duration-300 ease-in-out mb-3 bg-white shadow-md border-gray-200 hover:shadow-lg"
+                                            href="#0"
+                                        >
+                                            <div>
+                                                <div class="font-bold leading-snug tracking-tight mb-1">
+                                                    PEP 8 Compliance
+                                                </div>
+                                                <div class="text-gray-600">
+                                                    The tool is specifically tailored to evaluate code against the guidelines set forth in PEP 8. This ensures that the code follows consistent naming conventions, indentation practices, line length limits, and more.
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="flex justify-center items-center w-8 h-8 bg-white rounded-full shadow flex-shrink-0 ml-3"
+                                            >
+                                                <svg
+                                                    class="w-3 h-3 fill-current"
+                                                    viewBox="0 0 12 12"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M11.953 4.29a.5.5 0 00-.454-.292H6.14L6.984.62A.5.5 0 006.12.173l-6 7a.5.5 0 00.379.825h5.359l-.844 3.38a.5.5 0 00.864.445l6-7a.5.5 0 00.075-.534z"
+                                                    ></path>
+                                                </svg>
+                                            </div>
+                                            </a
+                                            ><a
+                                                class="flex items-center text-lg p-5 rounded border transition duration-300 ease-in-out mb-3 bg-white shadow-md border-gray-200 hover:shadow-lg"
+                                                href="#0"
+                                            >
+                                                <div>
+                                                    <div class="font-bold leading-snug tracking-tight mb-1">
+                                                        Readability Enhancement
+                                                    </div>
+                                                    <div class="text-gray-600">
+                                                        By highlighting areas of concern, the service assists developers in improving the readability of their code. Consistent formatting and adherence to conventions contribute to code that is easier to understand by both the original developer and other team members.
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="flex justify-center items-center w-8 h-8 bg-white rounded-full shadow flex-shrink-0 ml-3"
+                                                >
+                                                    <svg
+                                                        class="w-3 h-3 fill-current"
+                                                        viewBox="0 0 12 12"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path
+                                                            d="M11.854.146a.5.5 0 00-.525-.116l-11 4a.5.5 0 00-.015.934l4.8 1.921 1.921 4.8A.5.5 0 007.5 12h.008a.5.5 0 00.462-.329l4-11a.5.5 0 00-.116-.525z"
+                                                            fill-rule="nonzero"
+                                                        ></path>
+                                                    </svg>
+                                                </div>
+                                                </a
+                                                ><a
+                                                    class="flex items-center text-lg p-5 rounded border transition duration-300 ease-in-out mb-3 bg-white shadow-md border-gray-200 hover:shadow-lg"
+                                                    href="#0"
+                                                >
+                                                    <div>
+                                                        <div class="font-bold leading-snug tracking-tight mb-1">
+                                                            Maintenance Facilitation
+                                                        </div>
+                                                        <div class="text-gray-600">
+                                                            Code that follows industry standards is generally easier to maintain and refactor. The tool's insights help in reducing potential bugs caused by inconsistent formatting or coding practices.
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="flex justify-center items-center w-8 h-8 bg-white rounded-full shadow flex-shrink-0 ml-3"
+                                                    >
+                                                        <svg
+                                                            class="w-3 h-3 fill-current"
+                                                            viewBox="0 0 12 12"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <path
+                                                                d="M11.334 8.06a.5.5 0 00-.421-.237 6.023 6.023 0 01-5.905-6c0-.41.042-.82.125-1.221a.5.5 0 00-.614-.586 6 6 0 106.832 8.529.5.5 0 00-.017-.485z"
+                                                                fill="#191919"
+                                                                fill-rule="nonzero"
+                                                            ></path>
+                                                        </svg>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </main>
+                        {% include 'components/_footer.html' %}
+                    </div>
+
+                    {% include 'pages/about.html' %}
+
+{% endblock content %}

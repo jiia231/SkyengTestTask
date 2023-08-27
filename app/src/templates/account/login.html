@@ -1,0 +1,9 @@
+{% extends "account/_login_and_signup_template.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Log in{% endblock title %}
+{% block main_text %}Welcome Back :){% endblock main_text %}
+{% block form %}
+    {% csrf_token %}
+    {% crispy form %}
+{% endblock form %}
+{% block submit_btn_text %}Log In{% endblock submit_btn_text %}

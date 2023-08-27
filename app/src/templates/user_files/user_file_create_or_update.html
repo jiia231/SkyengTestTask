@@ -1,0 +1,15 @@
+{% extends "_dashboard_page.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Upload new file{% endblock title %}
+{% block inner_content %}
+    <div class="justify-center">
+        <div class="max-w-sm">
+            <form id="this-form" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                {% crispy form %}
+
+                <button form="this-form" type="submit" class="text-white hover:text-white-100 px-5 py-3 mt-6 max-w-xs rounded-lg flex justify-center shadow hover:shadow-lg transition duration-300 ease-in-out bg-blue-600 hover:bg-blue-700">Save</button>
+            </form>
+        </div>
+    </div>
+{% endblock inner_content %}

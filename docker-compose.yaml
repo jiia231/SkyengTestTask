@@ -1,0 +1,67 @@
+services:
+  checker_app:
+    build:
+      context: ./app
+      target: production
+    image: checker_app
+    volumes:
+      - statics_volume:/checker_app/static/
+      - media_volume:/checker_app/media/
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_DEBUG=${DJANGO_DEBUG}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - DJANGO_POSTGRES_HOST=${DJANGO_POSTGRES_HOST}
+      - DJANGO_POSTGRES_PORT=${DJANGO_POSTGRES_PORT}
+      - DJANGO_POSTGRES_USER=${DJANGO_POSTGRES_USER}
+      - DJANGO_POSTGRES_PASSWORD=${DJANGO_POSTGRES_PASSWORD}
+      - DJANGO_POSTGRES_DATABASE=${DJANGO_POSTGRES_DATABASE}
+      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
+    depends_on:
+      - postgres
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/configs:/etc/nginx/conf.d:ro
+      - statics_volume:/data/static:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - checker_app
+    restart: on-failure
+
+  rabbitmq_broker:
+    image: rabbitmq:3.11.2
+
+  celery:
+    image: checker_app
+    command: bash -c "cd src && celery -A config worker -l INFO -B --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    volumes:
+      - media_volume:/checker_app/media/
+    environment:
+      - DJANGO_POSTGRES_HOST=${DJANGO_POSTGRES_HOST}
+      - DJANGO_POSTGRES_PORT=${DJANGO_POSTGRES_PORT}
+      - DJANGO_POSTGRES_USER=${DJANGO_POSTGRES_USER}
+      - DJANGO_POSTGRES_PASSWORD=${DJANGO_POSTGRES_PASSWORD}
+      - DJANGO_POSTGRES_DATABASE=${DJANGO_POSTGRES_DATABASE}
+    depends_on:
+      - rabbitmq_broker
+
+  postgres:
+    image: postgres:15.3
+    volumes:
+      - data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+
+volumes:
+  data:
+  statics_volume:
+  media_volume:

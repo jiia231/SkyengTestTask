@@ -1,0 +1,5 @@
+{% load crispy_forms_tags %}
+<form id="this-form" class="max-w-sm" action="{% url 'search_results' %}" method="get">
+    {% crispy form %}
+    <button type="submit" form="this-form" class="text-white hover:text-white-100 px-5 py-3 mt-6 max-w-xs rounded-lg flex justify-center shadow hover:shadow-lg transition duration-300 ease-in-out bg-blue-600 hover:bg-blue-700">Search</button>
+</form>

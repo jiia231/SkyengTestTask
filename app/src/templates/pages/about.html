@@ -1,0 +1,41 @@
+<div id="modal" class="relative z-10 transition-opacity opacity-0 ease-in-out duration-200 invisible" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-75"></div>
+
+  <div class="fixed inset-0 z-10 overflow-y-auto" onclick="triggerModal(false)">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+        <div class="bg-white px-4 py-6">
+          <div class="flex justify-center">
+            <h1 class="text-2xl font-semibold leading-6 text-gray-900" id="modal-title">About</h1>
+          </div>
+          <div class="sm:flex sm:items-start">
+            <div class="mt-3 text-center">
+              <div class="mt-2">
+                <p class="text-lg text-gray-500">
+                  The Python File Checker is a valuable software service designed to streamline the process of assessing the quality of Python codebases. It functions as an tool that evaluates code against widely recognized and accepted industry coding conventions, with a specific focus on adhering to the guidelines outlined in PEP 8 – the official style guide for Python code.<br><br>This service serves as a significant aid to developers, software teams, and organizations in ensuring that their Python code aligns with established best practices. It works by analyzing the codebase, identifying instances where the code deviates from these conventions, and generating detailed reports that highlight these deviations. By doing so, it offers actionable insights into areas of improvement, enabling developers to enhance their code's readability, maintainability, and overall quality.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.querySelector('#modal');
+
+  function triggerModal (value){
+    const modalCl = modal.classList
+
+    if(value){
+      modalCl.remove('invisible')
+      modalCl.replace('opacity-0', 'opacity-100')
+    } else {
+      modalCl.replace('opacity-100', 'opacity-0')
+      setTimeout(() => modalCl.add('invisible'), 200);
+    }
+  }
+
+</script>

@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checker-app
+  labels:
+    app: django
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: django
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 50%
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
+      initContainers:
+        - name: move-static
+          image: checker_app
+          command: [ "python", "manage.py", "collectstatic", "--noinput" ]
+      containers:
+        - name: checker-app
+          image: registry.skyeng-test-task.xyz/checker_app:5
+          command: [ "gunicorn", "--chdir", "./src", "config.wsgi:application", "--bind", "0.0.0.0:8000" ]
+          ports:
+            - containerPort: 8000
+          resources: { }
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: HOST_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: django-app-env

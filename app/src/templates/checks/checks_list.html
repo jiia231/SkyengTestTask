@@ -1,0 +1,17 @@
+{% extends "_dashboard_page.html" %}
+{% block title %}Check reports{% endblock title %}
+{% block inner_content %}
+    <h2 class="text-2xl mb-4 mr-4">Your checks:</h2>
+    <div class="grid grid-cols-3 gap-4">
+        {% for lint_check in check_list %}
+            <div
+                class="max-w-sm max-h-24 p-3 mb-4 bg-white rounded-lg overflow-auto no-scrollbar"
+            >
+                <h3 class="text-xl">{{ lint_check.result.capitalize }}</h3>
+                <h4 class="text-md">{{ lint_check.created }}</h4>
+                <span class="text-xs">{{ lint_check.logs }}</span>
+            </div>
+
+        {% endfor %}
+    </div>
+{% endblock inner_content %}
