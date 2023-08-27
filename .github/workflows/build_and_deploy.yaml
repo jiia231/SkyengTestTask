@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build-and-deploy:
@@ -29,11 +29,10 @@ jobs:
       - name: Build and Deploy
         run: |
           # curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--disable=traefik" sh -s -
-          sudo mkdir /.ssh/
-          sudo echo ${{ secrets.SSH_PRIVATE_KEY }} >> /.ssh/id_rsa
-          sudo scp root@${{ secrets.HOST_ADDR }}:/etc/rancher/k3s/k3s.yaml /etc/rancher/k3s/k3s.yaml
+          echo ${{ secrets.SSH_PRIVATE_KEY }} >> ./id_rsa
+          scp -i ./id_rsa root@${{ secrets.HOST_ADDR }}:/etc/rancher/k3s/k3s.yaml ./k3s.yaml
 
-          export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+          export KUBECONFIG=./k3s.yaml
 
           # Install cert-manager.io
           kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.0/cert-manager.yaml
