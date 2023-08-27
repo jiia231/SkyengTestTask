@@ -27,21 +27,9 @@ jobs:
         with:
           scheme: semver
           increment: patch
-          
-      - name: Download k3s config via SCP
-        uses: nicklasfrahm/scp-action@main
-        with:
-          direction: download
-          host: ${{ vars.HOST_ADDR }}
-          username: root
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: /etc/rancher/k3s/k3s.yaml
-          target: ./k3s.yaml
-          insecure_ignore_fingerprint: true
 
       - name: Build and Deploy
         run: |
-        
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 700 ~/.ssh/id_rsa
