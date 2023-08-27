@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
     kubernetes.io/tls-acme: 'true'
-  name: nginx-ingress
+  name: nginx-ingress-a
 spec:
   ingressClassName: nginx
   tls:
@@ -16,16 +16,6 @@ spec:
         - skyeng-test-task.xyz
       secretName: letsencrypt-production
   rules:
-    - host: registry.skyeng-test-task.xyz
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: docker-registry
-                port:
-                  number: 5000
     - host: skyeng-test-task.xyz
       http:
         paths:
@@ -36,3 +26,26 @@ spec:
                 name: app-service
                 port:
                   number: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    kubernetes.io/tls-acme: 'true'
+  name: nginx-ingress-b
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: registry.skyeng-test-task.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: registry-service
+                port:
+                  number: 5000

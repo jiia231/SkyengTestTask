@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: app-service
 spec:
+  type: LoadBalancer
   selector:
     app: django
   ports:
