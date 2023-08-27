@@ -36,8 +36,7 @@ jobs:
           ssh-keyscan -H ${{ vars.HOST_ADDR }} >> ~/.ssh/known_hosts
           scp -o StrictHostKeyChecking=no -r root@${{ vars.HOST_ADDR }}:/etc/rancher/k3s/k3s.yaml ./k3s.yaml
           sed -i 's/127.0.0.1/${{ vars.HOST_ADDR }}/' ./k3s.yaml
-          kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.0/cert-manager.yaml
-      
+
       - uses: danielr1996/envsubst-action@1.0.0
         env:
           DJANGO_DEBUG: ${{ env.DJANGO_DEBUG }}
@@ -55,9 +54,17 @@ jobs:
           input: ./k8s/secrets.yaml
           output: ./k8s/output_secrets.yaml
 
+      - uses: danielr1996/envsubst-action@1.0.0
+        env:
+          IMAGE_TAG: ${{ steps.version.outputs.current-version }}
+        with:
+          input: ./k8s/checker_app.yaml
+          output: ./k8s/output_checker_app.yaml
+
       - name: Apply all files
         run: |
           rm ./k8s/secrets.yaml
+          rm ./k8s/checker_app.yaml
           # Apply all files
           kubectl apply --recursive -f ./k8s/
 
