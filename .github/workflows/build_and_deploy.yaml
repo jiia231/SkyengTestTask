@@ -37,6 +37,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: /etc/rancher/k3s/k3s.yaml
           target: ./k3s.yaml
+          insecure_proxy_ignore_fingerprint: true
 
       - name: Build and Deploy
         run: |
