@@ -33,7 +33,6 @@ jobs:
         with:
           direction: download
           host: ${{ vars.HOST_ADDR }}
-          fingerprint: ${{ secrets.SSH_TARGET_FINGERPRINT }}
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: /etc/rancher/k3s/k3s.yaml
