@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
     kubernetes.io/tls-acme: 'true'
-  name: nginx-ingress-a
+  name: nginx-ingress
 spec:
   ingressClassName: nginx
   tls:
@@ -26,19 +26,6 @@ spec:
                 name: app-service
                 port:
                   number: 8000
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-    kubernetes.io/tls-acme: 'true'
-  name: nginx-ingress-b
-spec:
-  ingressClassName: nginx
-  rules:
     - host: registry.skyeng-test-task.xyz
       http:
         paths:
