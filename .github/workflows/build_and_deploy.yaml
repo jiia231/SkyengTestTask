@@ -58,13 +58,13 @@ jobs:
         env:
           IMAGE_TAG: ${{ steps.version.outputs.current-version }}
         with:
-          input: ./k8s/checker_app.yaml
+          input: ./k8s/checker_app/checker_app.yaml
           output: ./k8s/output_checker_app.yaml
 
       - name: Apply all files
         run: |
           rm ./k8s/secrets.yaml
-          rm ./k8s/checker_app.yaml
+          rm ./k8s/checker_app/checker_app.yaml
           # Apply all files
           kubectl apply --recursive -f ./k8s/
 
