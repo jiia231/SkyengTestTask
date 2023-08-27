@@ -17,3 +17,4 @@ spec:
           envFrom:
             - secretRef:
                 name: django-app-env
+        restartPolicy: OnFailure
