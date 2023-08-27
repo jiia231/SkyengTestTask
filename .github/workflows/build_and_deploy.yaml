@@ -41,6 +41,12 @@ jobs:
 
       - name: Build and Deploy
         run: |
+        
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 700 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ vars.HOST_ADDR }} >> ~/.ssh/known_hosts
+          scp -o StrictHostKeyChecking=no -r root@${{ secrets.HOST_ADDR }}:/etc/rancher/k3s/k3s.yaml ./k3s.yaml
           kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.0/cert-manager.yaml
       
       - uses: danielr1996/envsubst-action@1.0.0
