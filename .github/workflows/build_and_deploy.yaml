@@ -60,7 +60,7 @@ jobs:
           # Apply all files
           kubectl apply -f ./k8s/
 
-          sleep(10)
+          sleep(30)
 
           docker login -u ${{ secrets.DOCKER_LOGIN }} -p ${{ secrets.DOCKER_PASSWORD }} https://registry.skyeng-test-task.xyz
 
