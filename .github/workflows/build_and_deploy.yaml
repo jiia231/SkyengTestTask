@@ -65,7 +65,7 @@ jobs:
 
           docker login -u ${{ secrets.DOCKER_LOGIN }} -p ${{ secrets.DOCKER_PASSWORD }} https://registry.skyeng-test-task.xyz
 
-          docker build --platform=linux/amd64 -t registry.skyeng-test-task.xyz/checker_app:${{ steps.version.outputs.version }} .
+          docker build --platform=linux/amd64 -t registry.skyeng-test-task.xyz/checker_app:${{ steps.version.outputs.version }} ./app
 
           docker push registry.skyeng-test-task.xyz/checker_app:${{ steps.version.outputs.version }}
 
