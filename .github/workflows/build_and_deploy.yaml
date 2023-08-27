@@ -11,22 +11,26 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
 
       - uses: azure/setup-kubectl@v3
         with:
           version: 'latest'
         id: install
 
-      - name: Get next version
-        uses: reecetech/version-increment@2023.4.1
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0
         id: version
-        with:
-          scheme: semver
-          increment: patch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
 
       - name: Build and Deploy
         run: |
@@ -56,7 +60,7 @@ jobs:
 
       - uses: danielr1996/envsubst-action@1.0.0
         env:
-          IMAGE_TAG: ${{ steps.version.outputs.current-version }}
+          IMAGE_TAG: ${{ steps.version.outputs.tag }}
         with:
           input: ./k8s/checker_app/checker_app.yaml
           output: ./k8s/output_checker_app.yaml
@@ -72,9 +76,9 @@ jobs:
 
           docker login -u ${{ secrets.DOCKER_LOGIN }} -p ${{ secrets.DOCKER_PASSWORD }} https://registry.skyeng-test-task.xyz
 
-          docker build --platform=linux/amd64 -t registry.skyeng-test-task.xyz/checker_app:${{ steps.version.outputs.version }} ./app
+          docker build --platform=linux/amd64 -t registry.skyeng-test-task.xyz/checker_app:${{ steps.version.outputs.new_tag }} ./app
 
-          docker push registry.skyeng-test-task.xyz/checker_app:${{ steps.version.outputs.version }}
+          docker push registry.skyeng-test-task.xyz/checker_app:${{ steps.version.outputs.new_tag }}
           
           kubectl delete secret regcred --ignore-not-found
           kubectl create secret docker-registry regcred --docker-server=https://registry.skyeng-test-task.xyz --docker-username=${{ secrets.DOCKER_LOGIN }} --docker-password=${{ secrets.DOCKER_PASSWORD }}

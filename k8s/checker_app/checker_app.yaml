@@ -24,7 +24,7 @@ spec:
       initContainers:
         - name: move-static
           image: registry.skyeng-test-task.xyz/checker_app:${IMAGE_TAG}
-          command: [ "python", "manage.py", "collectstatic", "--noinput" ]
+          command: [ "python", "./src/manage.py", "collectstatic", "--noinput" ]
       containers:
         - name: checker-app
           image: registry.skyeng-test-task.xyz/checker_app:${IMAGE_TAG}
@@ -68,7 +68,7 @@ spec:
       containers:
         - name: migrate-app-db
           image: registry.skyeng-test-task.xyz/checker_app:${IMAGE_TAG}
-          command: ["python", "manage.py", "migrate", "--database", "default"]
+          command: ["python", "./src/manage.py", "migrate", "--database", "default"]
           envFrom:
             - secretRef:
                 name: django-app-env
