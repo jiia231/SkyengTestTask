@@ -29,9 +29,9 @@ jobs:
       - name: Build and Deploy
         run: |
           # curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--disable=traefik" sh -s -
-          mkdir /.ssh/
-          echo ${{ secrets.SSH_PRIVATE_KEY }} >> /.ssh/id_rsa
-          scp root@${{ secrets.HOST_ADDR }}:/etc/rancher/k3s/k3s.yaml /etc/rancher/k3s/k3s.yaml
+          sudo mkdir /.ssh/
+          sudo echo ${{ secrets.SSH_PRIVATE_KEY }} >> /.ssh/id_rsa
+          sudo scp root@${{ secrets.HOST_ADDR }}:/etc/rancher/k3s/k3s.yaml /etc/rancher/k3s/k3s.yaml
 
           export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 
