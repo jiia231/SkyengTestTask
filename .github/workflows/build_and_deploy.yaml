@@ -53,10 +53,7 @@ jobs:
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         with:
           input: ./k8s/secrets.yaml
-          output: ./temp_secrets.json
-
-      - name: Apply secrets
-        run:  kubectl apply -f ./temp_secrets.json
+          output: ./k8s/secrets.yaml
 
       - name: Apply all files
         run: |
