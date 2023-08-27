@@ -75,5 +75,6 @@ jobs:
           docker build --platform=linux/amd64 -t registry.skyeng-test-task.xyz/checker_app:${{ steps.version.outputs.version }} ./app
 
           docker push registry.skyeng-test-task.xyz/checker_app:${{ steps.version.outputs.version }}
-
+          
+          kubectl delete secret regcred --ignore-not-found
           kubectl create secret docker-registry regcred --docker-server=https://registry.skyeng-test-task.xyz --docker-username=${{ secrets.DOCKER_LOGIN }} --docker-password=${{ secrets.DOCKER_PASSWORD }}
