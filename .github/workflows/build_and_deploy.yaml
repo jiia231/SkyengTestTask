@@ -1,4 +1,4 @@
-name: Docker CI/CD
+name: K8s Continuous Deployment
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
       - main
 env:
   KUBECONFIG: ./k3s.yaml
-  
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -32,7 +32,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
 
-      - name: Build and Deploy
+      - name: Copy and prepare k3s config
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
@@ -41,7 +41,8 @@ jobs:
           scp -o StrictHostKeyChecking=no -r root@${{ vars.HOST_ADDR }}:/etc/rancher/k3s/k3s.yaml ./k3s.yaml
           sed -i 's/127.0.0.1/${{ vars.HOST_ADDR }}/' ./k3s.yaml
 
-      - uses: danielr1996/envsubst-action@1.0.0
+      - name: Substitute env variables into secrets
+        uses: danielr1996/envsubst-action@1.0.0
         env:
           DJANGO_DEBUG: ${{ vars.DJANGO_DEBUG }}
           DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
@@ -58,7 +59,8 @@ jobs:
           input: ./k8s/secrets.yaml
           output: ./k8s/output_secrets.yaml
 
-      - uses: danielr1996/envsubst-action@1.0.0
+      - name: Substitute checker_app.yaml
+        uses: danielr1996/envsubst-action@1.0.0
         env:
           IMAGE_TAG: ${{ steps.version.outputs.tag }}
         with:
@@ -70,16 +72,17 @@ jobs:
           rm ./k8s/secrets.yaml
           rm ./k8s/checker_app/checker_app.yaml
           kubectl delete job migrate
-          # Apply all files
           kubectl apply --recursive -f ./k8s/
 
           sleep 15
 
+      - name: Build and push app image
+        run: |
           docker login -u ${{ secrets.DOCKER_LOGIN }} -p ${{ secrets.DOCKER_PASSWORD }} https://registry.skyeng-test-task.xyz
-
           docker build --platform=linux/amd64 -t registry.skyeng-test-task.xyz/checker_app:${{ steps.version.outputs.new_tag }} ./app
-
           docker push registry.skyeng-test-task.xyz/checker_app:${{ steps.version.outputs.new_tag }}
-          
+
+      - name: Create regcred secret
+        run: |
           kubectl delete secret regcred --ignore-not-found
           kubectl create secret docker-registry regcred --docker-server=https://registry.skyeng-test-task.xyz --docker-username=${{ secrets.DOCKER_LOGIN }} --docker-password=${{ secrets.DOCKER_PASSWORD }}
