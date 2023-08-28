@@ -55,8 +55,8 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-          MINIO_STORAGE_ACCESS_KEY: ${{ MINIO_STORAGE_ACCESS_KEY }}
-          MINIO_STORAGE_SECRET_KEY: ${{ MINIO_STORAGE_SECRET_KEY }}
+          MINIO_STORAGE_ACCESS_KEY: ${{ secrets.MINIO_STORAGE_ACCESS_KEY }}
+          MINIO_STORAGE_SECRET_KEY: ${{ secrets.MINIO_STORAGE_SECRET_KEY }}
         with:
           input: ./k8s/secrets.yaml
           output: ./k8s/output_secrets.yaml
