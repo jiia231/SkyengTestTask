@@ -710,6 +710,21 @@ django = ">=3.2.4"
 sqlparse = ">=0.2"
 
 [[package]]
+name = "django-minio-storage"
+version = "0.5.6"
+description = "Django file storage using the minio python client"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "django-minio-storage-0.5.6.tar.gz", hash = "sha256:1b34af2c3e0e3131c9c59de1e342c2e1c1c3f1a8073f93fb84991c1dec3390f4"},
+    {file = "django_minio_storage-0.5.6-py3-none-any.whl", hash = "sha256:b9434e384e06ebee995b17c4cd9b2c0bd0c3a364875d6672506e4ec87b751359"},
+]
+
+[package.dependencies]
+django = ">=3.2"
+minio = ">=7.1.12"
+
+[[package]]
 name = "django-timezone-field"
 version = "6.0"
 description = "A Django app providing DB, form, and REST framework fields for zoneinfo and pytz timezone objects."
@@ -885,6 +900,21 @@ files = [
     {file = "mccabe-0.7.0-py2.py3-none-any.whl", hash = "sha256:6c2d30ab6be0e4a46919781807b4f0d834ebdd6c6e3dca0bda5a15f863427b6e"},
     {file = "mccabe-0.7.0.tar.gz", hash = "sha256:348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325"},
 ]
+
+[[package]]
+name = "minio"
+version = "7.1.16"
+description = "MinIO Python SDK for Amazon S3 Compatible Cloud Storage"
+optional = false
+python-versions = "*"
+files = [
+    {file = "minio-7.1.16-py3-none-any.whl", hash = "sha256:8073bed2b4b1853f3d69ab2f01a0de86264071083032985921201cfbb0950b15"},
+    {file = "minio-7.1.16.tar.gz", hash = "sha256:56ecb1e7e0103d2dc212fb460fdb70ab2abb7fa5685db378429325d96d95587a"},
+]
+
+[package.dependencies]
+certifi = "*"
+urllib3 = "*"
 
 [[package]]
 name = "oauthlib"
@@ -1541,4 +1571,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "82a897e2e1f73faac8fcfb1c25190ffef973f0ec43db9351c4414981c700a0ea"
+content-hash = "a5709787a20930d187be79247f9e4271d36f4a2283b81fa6c4346dfecf2faecb"

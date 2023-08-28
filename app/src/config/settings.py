@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "crispy_forms",
     "crispy_tailwind",
+    "minio_storage",
     # Local
     "accounts",
     "pages",
@@ -146,7 +147,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 STORAGES = {
     "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "BACKEND": "minio_storage.storage.MinioMediaStorage",
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
@@ -187,3 +188,10 @@ CRISPY_TEMPLATE_PACK = "tailwind"
 # Celery config
 CELERY_BROKER_URL = "amqp://rabbitmq_broker:5672/"
 CELERY_WORKER_REDIRECT_STDOUTS = False
+
+# MinIO storage config
+MINIO_STORAGE_ENDPOINT = "minio-service:9000"
+MINIO_STORAGE_ACCESS_KEY = os.environ.get("MINIO_STORAGE_ACCESS_KEY")
+MINIO_STORAGE_SECRET_KEY = os.environ.get("MINIO_STORAGE_SECRET_KEY")
+MINIO_STORAGE_MEDIA_BUCKET_NAME = "django_media"
+MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
