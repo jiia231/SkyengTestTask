@@ -150,6 +150,8 @@ STORAGES = {
     },
 }
 
+CSRF_TRUSTED_ORIGINS = ["https://skyeng-test-task.xyz"]
+
 STATIC_ROOT = BASE_DIR.parent / "static"
 MEDIA_ROOT = BASE_DIR.parent / "media"
 MEDIA_URL = "/media/"
