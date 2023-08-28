@@ -43,14 +43,14 @@ jobs:
 
       - uses: danielr1996/envsubst-action@1.0.0
         env:
-          DJANGO_DEBUG: ${{ env.DJANGO_DEBUG }}
+          DJANGO_DEBUG: ${{ vars.DJANGO_DEBUG }}
           DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
           DJANGO_POSTGRES_HOST: ${{ secrets.DJANGO_POSTGRES_HOST }}
           DJANGO_POSTGRES_PORT: ${{ secrets.DJANGO_POSTGRES_PORT }}
           DJANGO_POSTGRES_USER: ${{ secrets.DJANGO_POSTGRES_USER }}
           DJANGO_POSTGRES_PASSWORD: ${{ secrets.DJANGO_POSTGRES_PASSWORD }}
           DJANGO_POSTGRES_DATABASE: ${{ secrets.DJANGO_POSTGRES_DATABASE }}
-          DJANGO_ALLOWED_HOSTS: ${{ env.DJANGO_ALLOWED_HOSTS }}
+          DJANGO_ALLOWED_HOSTS: ${{ vars.DJANGO_ALLOWED_HOSTS }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
