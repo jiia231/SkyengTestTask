@@ -16,9 +16,6 @@ spec:
   containers:
   - name: minio
     image: quay.io/minio/minio:latest
-    command:
-    - /bin/bash
-    - -c
     env:
       - name: MINIO_ROOT_USER
         valueFrom:
@@ -30,6 +27,9 @@ spec:
           secretKeyRef:
             name: django-app-env
             key: MINIO_STORAGE_SECRET_KEY
+    command:
+    - /bin/bash
+    - -c
     args:
     - minio server /data --console-address :9090
     volumeMounts:

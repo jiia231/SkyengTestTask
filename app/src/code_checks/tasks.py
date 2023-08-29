@@ -6,19 +6,12 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from flake8.api import legacy as flake8
 from flake8.formatting.default import Default as DefaultFormatter
-
+from pathlib import Path
 from user_files.models import UserFile
 
 from .models import Check, PeriodicTaskRun
 
 logger = getLogger(__name__)
-
-memory_log = []
-
-
-class CustomFormatter(DefaultFormatter):
-    def _write(self, output: str) -> None:
-        memory_log.append(output)
 
 
 @shared_task
@@ -43,6 +36,12 @@ def send_notification(email: str, result: Check.ResultEnum, log: str):
 
 @shared_task(bind=True)
 def run_flake8_checks(self):
+    in_memory_log = []
+
+    class CustomFormatter(DefaultFormatter):
+        def _write(self, output: str) -> None:
+            in_memory_log.append(output)
+
     try:
         last_run_obj = (
             PeriodicTaskRun.objects.filter(task=self.name)
@@ -61,18 +60,20 @@ def run_flake8_checks(self):
             check.status = Check.StatusEnum.RUNNING
             style_guide = flake8.get_style_guide()
             style_guide.init_report(CustomFormatter)
-            report = style_guide.check_files([str(file.file.file)])
+            file_path = file.file.name
+            output_file = Path(f"/tmp/{file_path}")
+            output_file.parent.mkdir(exist_ok=True, parents=True)
+            output_file.write_text(file.file.read())
+            report = style_guide.input_file(f"/tmp/{file_path}")
 
-            print(report.total_errors)
             if report.total_errors == 0:
                 check.logs = "Linting successful. No issues found."
                 check.result = Check.ResultEnum.SUCCESS
                 check.status = Check.StatusEnum.DONE
             else:
-                print("fail")
                 check.logs = (
                     f"Linting failed. Issues found.\n"
-                    f"Total errors: {report.total_errors}\n" + "\n".join(memory_log)
+                    f"Total errors: {report.total_errors}\n" + "\n".join(in_memory_log)
                 )
                 check.result = Check.ResultEnum.FAIL
                 check.status = Check.StatusEnum.DONE

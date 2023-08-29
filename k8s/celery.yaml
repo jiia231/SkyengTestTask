@@ -24,7 +24,11 @@ spec:
       containers:
         - name: celery
           image: registry.skyeng-test-task.xyz/checker_app:${IMAGE_TAG}
-          command: [bash -c "cd src && celery -A config worker -l INFO -B --scheduler django_celery_beat.schedulers:DatabaseScheduler"]
+          command:
+            - bash
+            - -c
+          args:
+            - cd src && celery -A config worker -l INFO -B --scheduler django_celery_beat.schedulers:DatabaseScheduler
           envFrom:
             - secretRef:
                 name: django-app-env
