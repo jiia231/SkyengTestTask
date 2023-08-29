@@ -7,7 +7,7 @@
 </div>
 </h1>
 <div align="center">
-<img align="center" alt="Python File Checker" src="images/logo.svg"/>
+<img height="300" width="300" alt="Python File Checker" src="images/logo.svg"/>
 </div>
 
 ## Link to site
