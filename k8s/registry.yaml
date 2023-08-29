@@ -39,7 +39,8 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 80
+    - name: registry-port
+      port: 80
       targetPort: 80
   selector:
     app: docker-registry

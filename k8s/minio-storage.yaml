@@ -49,7 +49,7 @@ spec:
   selector:
     app: minio
   ports:
-    - name: minio-tcp
+    - name: minio-port
       protocol: TCP
       port: 9000
       targetPort: 9000
