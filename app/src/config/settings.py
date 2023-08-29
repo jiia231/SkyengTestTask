@@ -186,7 +186,7 @@ CRISPY_TEMPLATE_PACK = "tailwind"
 
 
 # Celery config
-CELERY_BROKER_URL = "amqp://rabbitmq_broker:5672/"
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "amqp://rabbitmq-broker:5672")
 CELERY_WORKER_REDIRECT_STDOUTS = False
 
 # MinIO storage config

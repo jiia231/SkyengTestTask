@@ -1,0 +1,30 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: broker
+spec:
+  rabbitmq:
+    additionalConfig: |
+      default_user=guest
+      default_pass=guest
+  replicas: 1
+  resources:
+    requests:
+      cpu: 500m
+      memory: 500Mi
+    limits:
+      cpu: 800m
+      memory: 500Mi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: broker-service
+spec:
+  ports:
+    - port: 5672
+      targetPort: 5672
+  selector:
+    app: broker

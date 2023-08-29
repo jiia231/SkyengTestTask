@@ -52,7 +52,23 @@ spec:
           envFrom:
             - secretRef:
                 name: django-app-env
+
 ---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: django
+  ports:
+    - port: 8000
+      targetPort: 8000
+
+---
+
 kind: Job
 apiVersion: batch/v1
 metadata:

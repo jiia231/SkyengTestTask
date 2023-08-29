@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery
+  labels:
+    app: celery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: celery
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: celery
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
+      containers:
+        - name: celery
+          image: registry.skyeng-test-task.xyz/checker_app:${IMAGE_TAG}
+          command: [bash -c "cd src && celery -A config worker -l INFO -B --scheduler django_celery_beat.schedulers:DatabaseScheduler"]
+          envFrom:
+            - secretRef:
+                name: django-app-env
