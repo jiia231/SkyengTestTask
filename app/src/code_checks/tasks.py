@@ -63,7 +63,7 @@ def run_flake8_checks(self):
             file_path = file.file.name
             output_file = Path(f"/tmp/{file_path}")
             output_file.parent.mkdir(exist_ok=True, parents=True)
-            output_file.write_text(file.file.read())
+            output_file.write_bytes(file.file.read())
             report = style_guide.input_file(f"/tmp/{file_path}")
 
             if report.total_errors == 0:
