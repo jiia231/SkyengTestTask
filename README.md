@@ -26,6 +26,10 @@ insights for improved code readability and maintainability.
 
 ## Launching
 #### Dev
+
+Create `.env` file and populate it with credentials.
+
+Then run `docker compose` command to launch dev version:
 ```shell
-docker-compose -f docker-compose.yaml -f docker-compose.local.yaml --env-file ./.env up -d --build
+docker compose -f docker-compose.yaml -f docker-compose.local.yaml --env-file ./.env up -d --build
 ```

@@ -82,6 +82,7 @@ jobs:
         run: |
           rm ./k8s/secrets.yaml
           rm ./k8s/checker_app.yaml
+          rm ./k8s/celery.yaml
           kubectl delete job migrate
           kubectl apply --recursive -f ./k8s/
 
